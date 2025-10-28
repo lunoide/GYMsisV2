@@ -1,0 +1,378 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ========================================
+    // FUNCIONES AUXILIARES
+    // ========================================
+    
+    // Verificar si el usuario está autenticado
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Verificar si el usuario es el propietario del documento
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    // Verificar roles de usuario
+    function hasRole(role) {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role;
+    }
+    
+    // Verificar si es administrador
+    function isAdmin() {
+      return hasRole('admin');
+    }
+    
+    // Verificar si es entrenador
+    function isTrainer() {
+      return hasRole('trainer');
+    }
+    
+    // Verificar si es vendedor
+    function isVendor() {
+      return hasRole('vendor');
+    }
+    
+    // Verificar si es miembro
+    function isMember() {
+      return hasRole('member');
+    }
+    
+    // Verificar si es staff (admin, trainer, o vendor)
+    function isStaff() {
+      return isAdmin() || isTrainer() || isVendor();
+    }
+    
+    // Verificar si puede acceder a datos de usuario específico
+    function canAccessUserData(userId) {
+      return isOwner(userId) || isStaff();
+    }
+    
+    // Verificar si es una actualización automática de estado de asignación
+    function isAutomatedStatusUpdate() {
+      let data = request.resource.data;
+      let existingData = resource.data;
+      
+      // Solo permite cambiar el campo 'status' de 'active' a 'expired'
+      return data.keys().hasOnly(['status']) &&
+             data.status == 'expired' &&
+             existingData.status == 'active';
+    }
+    
+    // Verificar si es una actualización automática de estado de membresía
+    function isAutomatedMembershipStatusUpdate() {
+      let data = request.resource.data;
+      
+      // Solo permite actualizar membershipStatus y lastActivity
+      return data.keys().hasOnly(['membershipStatus', 'lastActivity']) &&
+             data.membershipStatus in ['active', 'inactive'] &&
+             data.lastActivity is string;
+    }
+    
+    // ========================================
+    // REGLAS PARA COLECCIÓN DE USUARIOS
+    // ========================================
+    
+    match /users/{userId} {
+      // Lectura: Solo el propietario o staff
+      allow read: if canAccessUserData(userId);
+      
+      // Creación: Durante registro (usuario autenticado creando su propio documento), por admin, o sin autenticación
+      allow create: if (isAuthenticated() && isOwner(userId)) || isAdmin() || 
+                       validateUserCreation();
+      
+      // Actualización: Solo el propietario o admin con validaciones, o actualizaciones automáticas de estado
+      allow update: if ((isOwner(userId) || isAdmin()) && validateUserUpdate(userId)) ||
+                       isAutomatedMembershipStatusUpdate();
+      
+      // Eliminación: Solo admin
+      allow delete: if isAdmin();
+    }
+    
+    // Validaciones para creación de usuarios
+    function validateUserCreation() {
+      let data = request.resource.data;
+      return data.keys().hasAll(['email', 'role', 'firstName', 'lastName']) &&
+             data.email is string &&
+             data.email.matches('.*@.*\\..*') &&
+             data.role in ['admin', 'trainer', 'vendor', 'member'] &&
+             data.firstName is string &&
+             data.lastName is string &&
+             data.firstName.size() > 0 &&
+             data.lastName.size() > 0;
+    }
+    
+    // Validaciones para actualización de usuarios
+    function validateUserUpdate(userId) {
+      let data = request.resource.data;
+      let existingData = resource.data;
+      
+      // No se puede cambiar el UID
+      return (!data.keys().hasAny(['uid']) || data.uid == userId) &&
+             // Solo admin puede cambiar roles
+             (!data.keys().hasAny(['role']) || isAdmin() || data.role == existingData.role) &&
+             // Validar email si se proporciona
+             (!data.keys().hasAny(['email']) || (data.email is string && data.email.matches('.*@.*\\..*'))) &&
+             // Validar nombres si se proporcionan
+             (!data.keys().hasAny(['firstName']) || (data.firstName is string && data.firstName.size() > 0)) &&
+             (!data.keys().hasAny(['lastName']) || (data.lastName is string && data.lastName.size() > 0));
+    }
+    
+    // ========================================
+    // REGLAS PARA CLASES
+    // ========================================
+    
+    match /classes/{classId} {
+      // Lectura: Todos los usuarios autenticados
+      allow read: if isAuthenticated();
+      
+      // Escritura: Solo admin y entrenadores
+      allow write: if isAdmin() || isTrainer();
+    }
+    
+    // ========================================
+    // REGLAS PARA ASIGNACIONES DE CLASES
+    // ========================================
+    
+    match /classAssignments/{assignmentId} {
+      // Lectura: El miembro asignado o staff
+      allow read: if isAuthenticated() && 
+                     (isOwner(resource.data.memberId) || isStaff());
+      
+      // Creación: Staff o el propio miembro
+      allow create: if isAuthenticated() && 
+                       (isStaff() || isOwner(request.resource.data.memberId));
+      
+      // Actualización: Staff o actualizaciones automáticas de estado
+      allow update: if isStaff() || isAutomatedStatusUpdate();
+      
+      // Eliminación: Staff o el propio miembro
+      allow delete: if isStaff() || isOwner(resource.data.memberId);
+    }
+    
+    // ========================================
+    // REGLAS PARA PLANES DE MEMBRESÍA
+    // ========================================
+    
+    match /membershipPlans/{planId} {
+      // Lectura: Todos los usuarios autenticados
+      allow read: if isAuthenticated();
+      
+      // Escritura: Solo admin
+      allow write: if isAdmin();
+    }
+    
+    // ========================================
+    // REGLAS PARA ASIGNACIONES DE PLANES
+    // ========================================
+    
+    match /planAssignments/{assignmentId} {
+      // Lectura: El miembro asignado o staff
+      allow read: if isAuthenticated() && 
+                     (isOwner(resource.data.memberId) || isStaff());
+      
+      // Creación y eliminación: Solo staff
+      allow create, delete: if isStaff();
+      
+      // Actualización: Staff o actualizaciones automáticas de estado
+      allow update: if isStaff() || isAutomatedStatusUpdate();
+    }
+    
+    // ========================================
+    // REGLAS PARA PAGOS
+    // ========================================
+    
+    match /payments/{paymentId} {
+      // Lectura: El miembro que realizó el pago o staff
+      allow read: if isAuthenticated() && 
+                     (isOwner(resource.data.memberId) || isStaff());
+      
+      // Creación: Staff o el propio miembro con validaciones
+      allow create: if isAuthenticated() && 
+                       (isStaff() || isOwner(request.resource.data.memberId)) &&
+                       validatePaymentCreation();
+      
+      // Actualización: Solo staff con validaciones
+      allow update: if isStaff() && validatePaymentUpdate();
+      
+      // Eliminación: Solo admin
+      allow delete: if isAdmin();
+    }
+    
+    // Validaciones para creación de pagos
+    function validatePaymentCreation() {
+      let data = request.resource.data;
+      return data.keys().hasAll(['memberId', 'amount', 'paymentDate']) &&
+             data.memberId is string &&
+             data.amount is number &&
+             data.amount > 0 &&
+             data.paymentDate is timestamp;
+    }
+    
+    // Validaciones para actualización de pagos
+    function validatePaymentUpdate() {
+      let data = request.resource.data;
+      // No se puede cambiar el monto una vez creado (solo admin puede)
+      return !data.keys().hasAny(['amount']) || isAdmin();
+    }
+    
+    // ========================================
+    // REGLAS PARA PRODUCTOS
+    // ========================================
+    
+    match /products/{productId} {
+      // Lectura: Todos los usuarios autenticados
+      allow read: if isAuthenticated();
+      
+      // Escritura: Solo admin y vendedores
+      allow write: if isAdmin() || isVendor();
+    }
+    
+    // ========================================
+    // REGLAS PARA VENTAS
+    // ========================================
+    
+    match /sales/{saleId} {
+      // Lectura: El comprador o staff
+      allow read: if isAuthenticated() && 
+                     (isOwner(resource.data.buyerId) || isStaff());
+      
+      // Creación: Staff o el propio comprador
+      allow create: if isAuthenticated() && 
+                       (isStaff() || isOwner(request.resource.data.buyerId));
+      
+      // Actualización: Solo staff
+      allow update: if isStaff();
+      
+      // Eliminación: Solo admin
+      allow delete: if isAdmin();
+    }
+    
+    // ========================================
+    // REGLAS PARA SISTEMA DE RECOMPENSAS
+    // ========================================
+    
+    match /rewards/{rewardId} {
+      // Lectura: Todos los usuarios autenticados
+      allow read: if isAuthenticated();
+      
+      // Escritura: Solo admin
+      allow write: if isAdmin();
+    }
+    
+    match /rewardRequests/{requestId} {
+      // Lectura: El usuario solicitante o staff
+      allow read: if isAuthenticated() && 
+                     (isOwner(resource.data.userId) || isStaff());
+      
+      // Creación: Solo el propio usuario
+      allow create: if isAuthenticated() && 
+                       isOwner(request.resource.data.userId);
+      
+      // Actualización: Solo staff (para aprobar/rechazar)
+      allow update: if isStaff();
+      
+      // Eliminación: Solo admin
+      allow delete: if isAdmin();
+    }
+    
+    match /redemptions/{redemptionId} {
+      // Lectura: El usuario que canjeó o staff
+      allow read: if isAuthenticated() && 
+                     (isOwner(resource.data.userId) || isStaff());
+      
+      // Escritura: Solo staff
+      allow write: if isStaff();
+    }
+    
+    // ========================================
+    // REGLAS PARA PUNTOS DE USUARIO
+    // ========================================
+    
+    match /userPoints/{userId} {
+      // Lectura: El propietario o staff
+      allow read: if canAccessUserData(userId);
+      
+      // Escritura: Solo staff (para otorgar/quitar puntos)
+      allow write: if isStaff();
+    }
+    
+    // ========================================
+    // REGLAS PARA TRANSACCIONES DE PUNTOS
+    // ========================================
+    
+    match /pointTransactions/{transactionId} {
+      // Lectura: El usuario de la transacción o staff
+      allow read: if isAuthenticated() && 
+                     (isOwner(resource.data.userId) || isStaff());
+      
+      // Creación: Solo staff
+      allow create: if isStaff();
+      
+      // Actualización y eliminación: Solo admin
+      allow update, delete: if isAdmin();
+    }
+    
+    // ========================================
+    // REGLAS PARA ENTRENADORES
+    // ========================================
+    
+    match /trainers/{trainerId} {
+      // Lectura: Todos los usuarios autenticados pueden ver entrenadores
+      allow read: if isAuthenticated();
+      
+      // Creación: Solo admin puede crear entrenadores
+      allow create: if isAdmin();
+      
+      // Actualización: Solo admin o el propio entrenador
+      allow update: if isAdmin() || isOwner(trainerId);
+      
+      // Eliminación: Solo admin
+      allow delete: if isAdmin();
+    }
+    
+    // ========================================
+    // REGLAS PARA LOGS DE AUDITORÍA
+    // ========================================
+    
+    match /auditLogs/{logId} {
+      // Lectura: Solo admin
+      allow read: if isAdmin();
+      
+      // Creación: Solo el sistema (sin restricciones para logs automáticos)
+      allow create: if true;
+      
+      // Actualización y eliminación: Solo admin
+      allow update, delete: if isAdmin();
+    }
+    
+    // ========================================
+    // REGLAS PARA INGRESOS MENSUALES
+    // ========================================
+    
+    match /monthlyIncome/{incomeId} {
+      // Lectura: Solo staff (admin, trainer, vendor)
+      allow read: if isStaff();
+      
+      // Creación y actualización: Solo staff
+      allow create, update: if isStaff();
+      
+      // Eliminación: Solo admin
+      allow delete: if isAdmin();
+    }
+    
+    // ========================================
+    // REGLAS POR DEFECTO - DENEGAR TODO LO DEMÁS
+    // ========================================
+    
+    // Cualquier otra colección no especificada será denegada por defecto
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

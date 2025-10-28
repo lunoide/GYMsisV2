@@ -1,0 +1,64 @@
+version: 2
+updates:
+  # Mantener dependencias de npm actualizadas
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    assignees:
+      - "admin"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "automated"
+    ignore:
+      # Ignorar actualizaciones mayores de estas dependencias críticas
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "firebase"
+        update-types: ["version-update:semver-major"]
+    groups:
+      # Agrupar actualizaciones relacionadas
+      react:
+        patterns:
+          - "react*"
+          - "@types/react*"
+      firebase:
+        patterns:
+          - "firebase*"
+          - "@firebase/*"
+      testing:
+        patterns:
+          - "*jest*"
+          - "*test*"
+          - "vitest*"
+          - "@testing-library/*"
+      linting:
+        patterns:
+          - "eslint*"
+          - "@typescript-eslint/*"
+          - "prettier*"
+
+  # Mantener GitHub Actions actualizadas
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    assignees:
+      - "admin"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "github-actions"
+      - "automated"

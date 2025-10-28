@@ -1,0 +1,153 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  # Verificaciones básicas para PR
+  pr-validation:
+    name: PR Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Check PR title format
+      uses: amannn/action-semantic-pull-request@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        types: |
+          feat
+          fix
+          docs
+          style
+          refactor
+          perf
+          test
+          chore
+          ci
+          build
+        requireScope: false
+        
+    - name: Check for breaking changes
+      run: |
+        if git diff --name-only origin/main...HEAD | grep -E "(package\.json|package-lock\.json|firebase\.json|firestore\.rules)"; then
+          echo "⚠️ Breaking changes detected in configuration files"
+          echo "breaking_changes=true" >> $GITHUB_ENV
+        fi
+        
+    - name: Run tests with coverage
+      run: npm run test:coverage
+      
+    - name: Comment PR with coverage
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        recreate: true
+        path: coverage/coverage-summary.json
+
+  # Análisis de tamaño del bundle
+  bundle-analysis:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build and analyze bundle
+      run: |
+        npm run build
+        npx bundlesize
+        
+    - name: Bundle size check
+      uses: andresz1/size-limit-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  # Verificación de accesibilidad
+  accessibility-check:
+    name: Accessibility Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build application
+      run: npm run build
+      
+    - name: Serve application
+      run: |
+        npm install -g serve
+        serve -s dist -p 3000 &
+        sleep 10
+        
+    - name: Run accessibility tests
+      run: |
+        npx @axe-core/cli http://localhost:3000 --exit
+
+  # Verificación de performance
+  lighthouse-check:
+    name: Lighthouse Performance Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build application
+      run: npm run build
+      
+    - name: Serve application
+      run: |
+        npm install -g serve
+        serve -s dist -p 3000 &
+        sleep 10
+        
+    - name: Run Lighthouse CI
+      run: |
+        npm install -g @lhci/cli
+        lhci autorun
+      env:
+        LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
