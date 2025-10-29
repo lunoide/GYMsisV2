@@ -1,0 +1,229 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw12240\paperh20160\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 20:18:25.737 Running build in Washington, D.C., USA (East) \'96 iad1\
+20:18:25.738 Build machine configuration: 2 cores, 8 GB\
+20:18:25.892 Cloning github.com/lunoide/GYMsisV2 (Branch: main, Commit: f344c3a)\
+20:18:25.897 Previous build caches not available.\
+20:18:26.165 Cloning completed: 272.000ms\
+20:18:26.523 Running "vercel build"\
+20:18:26.903 Vercel CLI 48.6.0\
+20:18:27.076 WARN! Due to `builds` existing in your configuration file, the Build and Development Settings defined in your Project Settings will not apply. Learn More: https://vercel.link/unused-build-settings\
+20:18:27.702 Installing dependencies...\
+20:18:29.953 npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead\
+20:18:30.556 npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead\
+20:18:30.716 npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported\
+20:18:31.347 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.\
+20:18:33.634 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported\
+20:18:35.757 npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.\
+20:18:39.179 \
+20:18:39.180 > gymsisv2@0.0.0 prepare\
+20:18:39.180 > npm run type-check && npm run lint && npm run test:run\
+20:18:39.180 \
+20:18:39.390 \
+20:18:39.390 > gymsisv2@0.0.0 type-check\
+20:18:39.390 > tsc --noEmit\
+20:18:39.391 \
+20:18:39.702 \
+20:18:39.703 > gymsisv2@0.0.0 lint\
+20:18:39.703 > eslint .\
+20:18:39.703 \
+20:18:43.740 \
+20:18:43.741 /vercel/path0/src/components/ui/RateLimitMessage.tsx\
+20:18:43.741   109:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components\
+20:18:43.742 \
+20:18:43.742 \uc0\u10006  1 problem (0 errors, 1 warning)\
+20:18:43.742 \
+20:18:43.989 \
+20:18:43.991 > gymsisv2@0.0.0 test:run\
+20:18:43.991 > vitest run\
+20:18:43.992 \
+20:18:44.500 \
+20:18:44.500 [7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90m/vercel/path0[39m\
+20:18:44.500 \
+20:18:45.564  [32m\uc0\u10003 [39m src/tests/security/rateLimitService.test.ts [2m ([22m[2m20 tests[22m[2m)[22m[90m 18[2mms[22m[39m\
+20:18:46.316  [32m\uc0\u10003 [39m src/test/xss-protection.test.ts [2m ([22m[2m16 tests[22m[2m)[22m[90m 14[2mms[22m[39m\
+20:18:47.044  [32m\uc0\u10003 [39m src/tests/security/rateLimitMiddleware.test.ts [2m ([22m[2m21 tests[22m[2m)[22m[90m 11[2mms[22m[39m\
+20:18:47.091 \
+20:18:47.093 [2m Test Files [22m [1m[32m3 passed[39m[22m[90m (3)[39m\
+20:18:47.093 [2m      Tests [22m [1m[32m57 passed[39m[22m[90m (57)[39m\
+20:18:47.094 [2m   Start at [22m 00:18:44\
+20:18:47.094 [2m   Duration [22m 2.59s[2m (transform 129ms, setup 171ms, collect 135ms, tests 43ms, environment 1.19s, prepare 284ms)[22m\
+20:18:47.094 \
+20:18:47.131 \
+20:18:47.131 added 651 packages in 19s\
+20:18:47.132 \
+20:18:47.133 119 packages are looking for funding\
+20:18:47.133   run `npm fund` for details\
+20:18:47.177 Running "npm run build"\
+20:18:47.279 \
+20:18:47.280 > gymsisv2@0.0.0 build\
+20:18:47.280 > tsc -b && vite build\
+20:18:47.280 \
+20:18:56.933 src/components/admin/FinancialReport.tsx(22,3): error TS6133: 'Calendar' is declared but its value is never read.\
+20:18:56.933 src/components/admin/FinancialReport.tsx(529,45): error TS6133: 'entry' is declared but its value is never read.\
+20:18:56.933 src/components/admin/FinancialReport.tsx(594,47): error TS2339: Property 'percentage' does not exist on type '\{ productName: string; revenue: number; quantity: number; \}'.\
+20:18:56.933 src/components/admin/MemberManagementDetailed.tsx(15,3): error TS6133: 'Edit' is declared but its value is never read.\
+20:18:56.933 src/components/admin/MemberManagementDetailed.tsx(21,3): error TS6133: 'Filter' is declared but its value is never read.\
+20:18:56.933 src/components/admin/MemberManagementDetailed.tsx(25,3): error TS6133: 'MapPin' is declared but its value is never read.\
+20:18:56.933 src/components/admin/MemberManagementDetailed.tsx(52,57): error TS6133: 'safeUserDisplay' is declared but its value is never read.\
+20:18:56.933 src/components/admin/MemberManagementDetailed.tsx(182,14): error TS2322: Type '\{ children: string; variant: "secondary" | "success" | "destructive"; \}' is not assignable to type 'IntrinsicAttributes & BadgeProps'.\
+20:18:56.933   Property 'variant' does not exist on type 'IntrinsicAttributes & BadgeProps'.\
+20:18:56.934 src/components/admin/MemberManagementDetailed.tsx(473,34): error TS2322: Type '\{ children: "active" | "cancelled" | "expired" | "completed"; variant: string; \}' is not assignable to type 'IntrinsicAttributes & BadgeProps'.\
+20:18:56.934   Property 'variant' does not exist on type 'IntrinsicAttributes & BadgeProps'.\
+20:18:56.934 src/components/admin/MemberManagementDetailed.tsx(507,34): error TS2322: Type '\{ children: "active" | "cancelled" | "expired"; variant: string; \}' is not assignable to type 'IntrinsicAttributes & BadgeProps'.\
+20:18:56.935   Property 'variant' does not exist on type 'IntrinsicAttributes & BadgeProps'.\
+20:18:56.935 src/components/admin/MemberManagementDetailed.tsx(547,34): error TS2322: Type '\{ children: "cancelled" | "completed" | "pending"; variant: string; \}' is not assignable to type 'IntrinsicAttributes & BadgeProps'.\
+20:18:56.935   Property 'variant' does not exist on type 'IntrinsicAttributes & BadgeProps'.\
+20:18:56.935 src/components/admin/PaymentManagement.tsx(76,50): error TS6133: 'isExpense' is declared but its value is never read.\
+20:18:56.935 src/components/admin/RewardRequestsManagement.tsx(9,3): error TS6133: 'MessageSquare' is declared but its value is never read.\
+20:18:56.936 src/components/admin/RewardRequestsManagement.tsx(15,1): error TS6133: 'UserPointsService' is declared but its value is never read.\
+20:18:56.936 src/components/admin/StaffManagement.tsx(67,13): error TS2322: Type '(\{ id: string; firstName: string; lastName: string; email: string; phone: string; status: "active" | "inactive" | "on_leave"; staffType: StaffType; specialties: string[]; certifications: string[]; experience: number; hourlyRate: number; bio: string; \} | \{ ...; \})[]' is not assignable to type 'StaffMember[]'.\
+20:18:56.936   Type '\{ id: string; firstName: string; lastName: string; email: string; phone: string; status: "active" | "inactive" | "on_leave"; staffType: StaffType; specialties: string[]; certifications: string[]; experience: number; hourlyRate: number; bio: string; \} | \{ ...; \}' is not assignable to type 'StaffMember'.\
+20:18:56.936     Type '\{ id: string; firstName: string; lastName: string; email: string; phone: string; status: "active" | "inactive" | "on_leave"; staffType: StaffType; specialties: string[]; certifications: string[]; experience: number; hourlyRate: number; bio: string; \}' is not assignable to type 'StaffMember'.\
+20:18:56.936       Types of property 'status' are incompatible.\
+20:18:56.937         Type '"active" | "inactive" | "on_leave"' is not assignable to type '"active" | "inactive"'.\
+20:18:56.937           Type '"on_leave"' is not assignable to type '"active" | "inactive"'.\
+20:18:56.937 src/components/admin/StaffManagement.tsx(83,32): error TS2339: Property 'id' does not exist on type 'UserProfile'.\
+20:18:56.937 src/components/admin/StaffManagement.tsx(87,25): error TS2339: Property 'phone' does not exist on type 'UserProfile'.\
+20:18:56.937 src/components/admin/StaffManagement.tsx(88,26): error TS2339: Property 'status' does not exist on type 'UserProfile'.\
+20:18:56.937 src/components/admin/StaffManagement.tsx(90,27): error TS2339: Property 'company' does not exist on type 'UserProfile'.\
+20:18:56.938 src/components/admin/StaffManagement.tsx(91,28): error TS2339: Property 'products' does not exist on type 'UserProfile'.\
+20:18:56.938 src/components/admin/StaffManagement.tsx(92,33): error TS2339: Property 'contactPerson' does not exist on type 'UserProfile'.\
+20:18:56.938 src/components/admin/StaffManagement.tsx(133,64): error TS2345: Argument of type '\{ experience: number; firstName: string; lastName: string; email: string; phone: string; \}' is not assignable to parameter of type 'UpdateTrainerData'.\
+20:18:56.938   Property 'id' is missing in type '\{ experience: number; firstName: string; lastName: string; email: string; phone: string; \}' but required in type 'UpdateTrainerData'.\
+20:18:56.938 src/components/admin/StaffManagement.tsx(150,46): error TS2345: Argument of type '\{ experience: number; firstName: string; lastName: string; email: string; password: string; phone: string; \}' is not assignable to parameter of type 'CreateTrainerData'.\
+20:18:56.939   Type '\{ experience: number; firstName: string; lastName: string; email: string; password: string; phone: string; \}' is missing the following properties from type 'CreateTrainerData': specialties, certifications, hourlyRate\
+20:18:56.939 src/components/admin/StaffManagement.tsx(155,44): error TS2345: Argument of type '\{ firstName: string; lastName: string; email: string; password: string; phone: string; \}' is not assignable to parameter of type 'CreateVendorData'.\
+20:18:56.939   Type '\{ firstName: string; lastName: string; email: string; password: string; phone: string; \}' is missing the following properties from type 'CreateVendorData': dateOfBirth, emergencyContact\
+20:18:56.939 src/components/admin/StaffManagement.tsx(363,60): error TS2367: This comparison appears to be unintentional because the types '"vendor"' and '"trainer"' have no overlap.\
+20:18:56.939 src/components/admin/SystemAuditDashboard.tsx(2,1): error TS6133: 'SystemAuditService' is declared but its value is never read.\
+20:18:56.940 src/components/admin/SystemAuditDashboard.tsx(4,34): error TS6196: 'AuditResult' is declared but never used.\
+20:18:56.940 src/components/admin/SystemAuditDashboard.tsx(10,3): error TS6133: 'Users' is declared but its value is never read.\
+20:18:56.940 src/components/admin/SystemAuditDashboard.tsx(23,68): error TS6133: 'onBack' is declared but its value is never read.\
+20:18:56.940 src/components/admin/SystemAuditDashboard.tsx(28,10): error TS6133: 'showHistory' is declared but its value is never read.\
+20:18:56.940 src/components/admin/SystemAuditDashboard.tsx(29,10): error TS6133: 'reportStats' is declared but its value is never read.\
+20:18:56.940 src/components/admin/SystemAuditDashboard.tsx(41,38): error TS2339: Property 'status' does not exist on type 'AuditReportHistory'.\
+20:18:56.941 src/components/admin/SystemAuditDashboard.tsx(49,11): error TS18047: 'reportHistory' is possibly 'null'.\
+20:18:56.941 src/components/admin/SystemAuditDashboard.tsx(49,25): error TS2339: Property 'status' does not exist on type 'SystemAuditReport'.\
+20:18:56.941 src/components/admin/SystemAuditDashboard.tsx(50,24): error TS18047: 'reportHistory' is possibly 'null'.\
+20:18:56.941 src/components/admin/SystemAuditDashboard.tsx(50,38): error TS2339: Property 'report' does not exist on type 'SystemAuditReport'.\
+20:18:56.942 src/components/admin/SystemAuditDashboard.tsx(82,9): error TS6133: 'exportReportJSON' is declared but its value is never read.\
+20:18:56.942 src/components/admin/SystemAuditDashboard.tsx(83,41): error TS2551: Property 'exportReport' does not exist on type 'AuditReportService'. Did you mean 'exportReportCSV'?\
+20:18:56.942 src/components/admin/SystemAuditDashboard.tsx(96,9): error TS6133: 'exportReportCSV' is declared but its value is never read.\
+20:18:56.942 src/components/admin/SystemAuditDashboard.tsx(99,30): error TS2322: Type 'Promise<string | null>' is not assignable to type 'BlobPart'.\
+20:18:56.948   Type 'Promise<string | null>' is missing the following properties from type 'ArrayBuffer': byteLength, slice\
+20:18:56.948 src/components/admin/SystemAuditDashboard.tsx(110,9): error TS6133: 'loadHistoricalReport' is declared but its value is never read.\
+20:18:56.948 src/components/admin/SystemAuditDashboard.tsx(112,26): error TS2339: Property 'status' does not exist on type 'AuditReportHistory'.\
+20:18:56.949 src/components/admin/TrainerManagement.tsx(59,10): error TS6133: 'assignments' is declared but its value is never read.\
+20:18:56.949 src/components/admin/TrainerManagement.tsx(59,23): error TS6133: 'setAssignments' is declared but its value is never read.\
+20:18:56.949 src/components/admin/TrainerManagement.tsx(125,9): error TS6133: 'availableClasses' is declared but its value is never read.\
+20:18:56.949 src/components/admin/TrainerManagement.tsx(246,9): error TS6133: 'handleCancelAssignment' is declared but its value is never read.\
+20:18:56.949 src/components/admin/TrainerManagement.tsx(957,56): error TS6133: 'onUpdateClass' is declared but its value is never read.\
+20:18:56.949 src/components/admin/TrainerManagement.tsx(959,10): error TS6133: 'selectedClass' is declared but its value is never read.\
+20:18:56.950 src/components/admin/TrainerManagement.tsx(1480,7): error TS2322: Type 'string' is not assignable to type '"cash" | "card" | "transfer" | "other"'.\
+20:18:56.950 src/components/admin/reports/MemberReport.tsx(412,71): error TS6133: 'entry' is declared but its value is never read.\
+20:18:56.950 src/components/dashboard/AdminDashboard.tsx(26,11): error TS6133: 'safeText' is declared but its value is never read.\
+20:18:56.950 src/components/dashboard/MemberDashboard.tsx(32,21): error TS6133: 'safeNotification' is declared but its value is never read.\
+20:18:56.950 src/components/dashboard/MemberDashboard.tsx(235,9): error TS6133: 'memberStats' is declared but its value is never read.\
+20:18:56.951 src/components/dashboard/MemberProgress.tsx(4,3): error TS6133: 'TrendingUp' is declared but its value is never read.\
+20:18:56.951 src/components/dashboard/MemberProgress.tsx(18,3): error TS6133: 'Edit3' is declared but its value is never read.\
+20:18:56.951 src/components/dashboard/MemberProgress.tsx(19,3): error TS6133: 'Save' is declared but its value is never read.\
+20:18:56.951 src/components/dashboard/MemberProgress.tsx(90,10): error TS6133: 'planAssignments' is declared but its value is never read.\
+20:18:56.951 src/components/dashboard/MemberProgress.tsx(703,40): error TS2339: Property 'measurementType' does not exist on type 'PhysicalMeasurement'.\
+20:18:56.952 src/components/dashboard/MemberProgress.tsx(713,75): error TS2339: Property 'bodyFat' does not exist on type 'PhysicalMeasurement'.\
+20:18:56.952 src/components/dashboard/MemberProgress.tsx(896,90): error TS2339: Property 'totalCarbs' does not exist on type 'DailyNutritionSummary'.\
+20:18:56.952 src/components/dashboard/MemberProgress.tsx(900,91): error TS2551: Property 'totalFat' does not exist on type 'DailyNutritionSummary'. Did you mean 'totalFats'?\
+20:18:56.952 src/components/dashboard/MemberProgress.tsx(906,90): error TS2339: Property 'waterIntake' does not exist on type 'DailyNutritionSummary'.\
+20:18:56.952 src/components/dashboard/MemberProgress.tsx(916,76): error TS2339: Property 'foodName' does not exist on type 'NutritionEntry'.\
+20:18:56.952 src/components/dashboard/MemberProgress.tsx(932,69): error TS2339: Property 'carbs' does not exist on type 'NutritionEntry'.\
+20:18:56.953 src/components/dashboard/MemberProgress.tsx(936,69): error TS2551: Property 'fat' does not exist on type 'NutritionEntry'. Did you mean 'fats'?\
+20:18:56.953 src/components/dashboard/MemberProgress.tsx(974,19): error TS2561: Object literal may only specify known properties, but 'height' does not exist in type 'Omit<PhysicalMeasurement, "id" | "createdAt" | "updatedAt" | "userId">'. Did you mean to write 'weight'?\
+20:18:56.953 src/components/dashboard/MemberProgress.tsx(1207,19): error TS2353: Object literal may only specify known properties, and 'foodName' does not exist in type 'Omit<NutritionEntry, "id" | "createdAt" | "updatedAt" | "userId">'.\
+20:18:56.953 src/components/dashboard/TrainerDashboard.tsx(7,25): error TS6196: 'ClassAssignment' is declared but never used.\
+20:18:56.953 src/components/dashboard/TrainerDashboard.tsx(13,10): error TS6133: 'assignedMembers' is declared but its value is never read.\
+20:18:56.953 src/components/dashboard/TrainerDashboard.tsx(136,34): error TS2304: Cannot find name 'getMemberClassAssignment'.\
+20:18:56.954 src/components/dashboard/TrainerDashboard.tsx(144,17): error TS2304: Cannot find name 'assignMemberToClass'.\
+20:18:56.954 src/components/dashboard/TrainerDashboard.tsx(154,34): error TS2304: Cannot find name 'getMemberAttendance'.\
+20:18:56.954 src/components/dashboard/TrainerDashboard.tsx(164,13): error TS2304: Cannot find name 'recordAttendance'.\
+20:18:56.954 src/components/dashboard/TrainerDashboard.tsx(186,35): error TS6133: 'memberId' is declared but its value is never read.\
+20:18:56.954 src/components/layout/Header.tsx(23,21): error TS6133: 'safeEmail' is declared but its value is never read.\
+20:18:56.954 src/components/plans/PlanAssignment.tsx(61,43): error TS2552: Cannot find name 'getMemberPlanAssignments'. Did you mean 'memberAssignments'?\
+20:18:56.956 src/components/plans/PlanAssignment.tsx(63,13): error TS7006: Parameter 'assignment' implicitly has an 'any' type.\
+20:18:56.956 src/components/plans/PlanAssignment.tsx(117,13): error TS2304: Cannot find name 'assignPlanToMember'.\
+20:18:56.956 src/config/roles.config.ts(3,13): error TS1294: This syntax is not allowed when 'erasableSyntaxOnly' is enabled.\
+20:18:56.956 src/diagnostics/registrationDebugger.ts(4,29): error TS6196: 'UserProfile' is declared but never used.\
+20:18:56.956 src/diagnostics/registrationDiagnostic.ts(8,16): error TS6133: 'cleanupTestUser' is declared but its value is never read.\
+20:18:56.957 src/hooks/useSanitization.ts(7,3): error TS6133: 'sanitizeNumber' is declared but its value is never read.\
+20:18:56.957 src/middleware/rateLimitMiddleware.ts(58,22): error TS6133: 'target' is declared but its value is never read.\
+20:18:56.957 src/middleware/rateLimitMiddleware.ts(58,35): error TS6133: 'propertyName' is declared but its value is never read.\
+20:18:56.957 src/pages/public/PlansPage.tsx(7,9): error TS6133: 'user' is declared but its value is never read.\
+20:18:56.957 src/pages/public/RewardsPage.tsx(53,9): error TS2322: Type 'UserPoints | null' is not assignable to type 'UserPoints'.\
+20:18:56.957   Type 'null' is not assignable to type 'UserPoints'.\
+20:18:56.958 src/services/analytics/firebaseUsageService.ts(4,3): error TS6133: 'query' is declared but its value is never read.\
+20:18:56.958 src/services/analytics/firebaseUsageService.ts(5,3): error TS6133: 'where' is declared but its value is never read.\
+20:18:56.958 src/services/analytics/firebaseUsageService.ts(131,11): error TS6133: 'startOfMonth' is declared but its value is never read.\
+20:18:56.958 src/services/audit/systemAuditService.ts(55,56): error TS2769: No overload matches this call.\
+20:18:56.958   Overload 1 of 2, '(query: Query<DocumentData, DocumentData>, compositeFilter: QueryCompositeFilterConstraint, ...queryConstraints: QueryNonFilterConstraint[]): Query<...>', gave the following error.\
+20:18:56.958     Argument of type 'number' is not assignable to parameter of type 'QueryCompositeFilterConstraint'.\
+20:18:56.959   Overload 2 of 2, '(query: Query<DocumentData, DocumentData>, ...queryConstraints: QueryConstraint[]): Query<DocumentData, DocumentData>', gave the following error.\
+20:18:56.959     Argument of type 'number' is not assignable to parameter of type 'QueryConstraint'.\
+20:18:56.959 src/services/auth/authService.ts(6,3): error TS6133: 'updateProfile' is declared but its value is never read.\
+20:18:56.959 src/services/auth/authService.ts(14,3): error TS6196: 'LoginCredentials' is declared but never used.\
+20:18:56.959 src/services/auth/authService.ts(16,3): error TS6196: 'AuthUser' is declared but never used.\
+20:18:56.959 src/services/classes/classService.ts(8,3): error TS6133: 'deleteDoc' is declared but its value is never read.\
+20:18:56.960 src/services/classes/classService.ts(13,3): error TS6133: 'serverTimestamp' is declared but its value is never read.\
+20:18:56.960 src/services/payments/paymentService.ts(15,63): error TS6196: 'IncomeType' is declared but never used.\
+20:18:56.960 src/services/payments/paymentService.ts(15,75): error TS6196: 'ExpenseType' is declared but never used.\
+20:18:56.960 src/services/plans/planService.ts(12,3): error TS6133: 'deleteDoc' is declared but its value is never read.\
+20:18:56.960 src/services/plans/planService.ts(13,3): error TS6133: 'serverTimestamp' is declared but its value is never read.\
+20:18:56.961 src/services/rewards/rewardsService.ts(8,3): error TS6133: 'deleteDoc' is declared but its value is never read.\
+20:18:56.961 src/services/scheduler/schedulerService.ts(3,1): error TS6133: 'PlanService' is declared but its value is never read.\
+20:18:56.961 src/services/scheduler/schedulerService.ts(54,13): error TS2662: Cannot find name 'updateExpiredAssignments'. Did you mean the static member 'SchedulerService.updateExpiredAssignments'?\
+20:18:56.961 src/services/scheduler/schedulerService.ts(57,13): error TS2662: Cannot find name 'updateExpiredAssignments'. Did you mean the static member 'SchedulerService.updateExpiredAssignments'?\
+20:18:56.961 src/services/user/userPointsService.ts(117,13): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.962 src/services/user/userPointsService.ts(121,22): error TS2304: Cannot find name 'server'.\
+20:18:56.962 src/services/user/userPointsService.ts(155,13): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.962 src/services/user/userPointsService.ts(158,22): error TS2304: Cannot find name 'server'.\
+20:18:56.962 src/services/user/userPointsService.ts(182,20): error TS2304: Cannot find name 'server'.\
+20:18:56.962 src/services/user/userPointsService.ts(197,17): error TS2769: No overload matches this call.\
+20:18:56.962   Overload 1 of 2, '(query: Query<DocumentData, DocumentData>, compositeFilter: QueryCompositeFilterConstraint, ...queryConstraints: QueryNonFilterConstraint[]): Query<...>', gave the following error.\
+20:18:56.963     Argument of type 'QueryFieldFilterConstraint' is not assignable to parameter of type 'QueryCompositeFilterConstraint'.\
+20:18:56.963       Types of property 'type' are incompatible.\
+20:18:56.963         Type '"where"' is not assignable to type '"or" | "and"'.\
+20:18:56.963   Overload 2 of 2, '(query: Query<DocumentData, DocumentData>, ...queryConstraints: QueryConstraint[]): Query<DocumentData, DocumentData>', gave the following error.\
+20:18:56.963     Argument of type 'string' is not assignable to parameter of type 'QueryConstraint'.\
+20:18:56.964 src/services/user/userPointsService.ts(199,40): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.965 src/services/user/userPointsService.ts(273,17): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.965 src/services/user/userPointsService.ts(277,26): error TS2304: Cannot find name 'server'.\
+20:18:56.965 src/services/user/userPointsService.ts(303,17): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.965 src/services/user/userPointsService.ts(306,26): error TS2304: Cannot find name 'server'.\
+20:18:56.966 src/services/users/memberService.ts(82,28): error TS2769: No overload matches this call.\
+20:18:56.966   Overload 1 of 2, '(query: Query<DocumentData, DocumentData>, compositeFilter: QueryCompositeFilterConstraint, ...queryConstraints: QueryNonFilterConstraint[]): Query<...>', gave the following error.\
+20:18:56.966     Argument of type 'QueryFieldFilterConstraint' is not assignable to parameter of type 'QueryCompositeFilterConstraint'.\
+20:18:56.966       Types of property 'type' are incompatible.\
+20:18:56.966         Type '"where"' is not assignable to type '"or" | "and"'.\
+20:18:56.966   Overload 2 of 2, '(query: Query<DocumentData, DocumentData>, ...queryConstraints: QueryConstraint[]): Query<DocumentData, DocumentData>', gave the following error.\
+20:18:56.967     Argument of type 'string' is not assignable to parameter of type 'QueryConstraint'.\
+20:18:56.967 src/services/users/memberService.ts(85,52): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.967 src/services/users/memberService.ts(124,13): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.967 src/services/users/memberService.ts(170,13): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.967 src/services/users/memberStatusService.ts(16,13): error TS2304: Cannot find name 'updateDoc'.\
+20:18:56.968 src/services/users/trainerService.ts(190,13): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.968 src/services/users/trainerService.ts(194,13): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.968 src/services/users/trainerService.ts(269,13): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.968 src/services/users/trainerService.ts(282,13): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.968 src/utils/createAdmin.ts(29,11): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:56.969 src/utils/simpleMemberCheck.ts(45,28): error TS2769: No overload matches this call.\
+20:18:56.969   Overload 1 of 2, '(query: Query<DocumentData, DocumentData>, compositeFilter: QueryCompositeFilterConstraint, ...queryConstraints: QueryNonFilterConstraint[]): Query<...>', gave the following error.\
+20:18:56.969     Argument of type 'QueryFieldFilterConstraint' is not assignable to parameter of type 'QueryCompositeFilterConstraint'.\
+20:18:56.969       Types of property 'type' are incompatible.\
+20:18:56.969         Type '"where"' is not assignable to type '"or" | "and"'.\
+20:18:56.969   Overload 2 of 2, '(query: Query<DocumentData, DocumentData>, ...queryConstraints: QueryConstraint[]): Query<DocumentData, DocumentData>', gave the following error.\
+20:18:56.970     Argument of type 'string' is not assignable to parameter of type 'QueryConstraint'.\
+20:18:56.970 src/utils/simpleMemberCheck.ts(47,47): error TS2695: Left side of comma operator is unused and has no side effects.\
+20:18:57.270 Error: Command "npm run build" exited with 2}
